@@ -7,27 +7,39 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.andrew.seeitsayit.HomePage">
+    tools:context="com.example.andrew.seeitsayit.HomePage"
+    android:clickable="false">
 
-    <ImageView
-        android:src="@drawable/ben"
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
+        android:text="Create Ticket"
+        android:id="@+id/homeCreateTicket"
+        android:layout_above="@+id/homeViewTickets"
+        android:layout_alignRight="@+id/homeViewTickets"
+        android:layout_alignEnd="@+id/homeViewTickets"
+        android:layout_alignLeft="@+id/homeViewTickets"
+        android:layout_alignStart="@+id/homeViewTickets"
+        android:clickable="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View List of Tickets"
+        android:id="@+id/homeViewTickets"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:maxWidth="100dp"
-        android:maxHeight="100dp"
-        android:minHeight="300dp"
-        android:minWidth="300dp"
-        android:nestedScrollingEnabled="true" />
+        android:clickable="true" />
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="This page is under construction, bitch"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true" />
+        android:text="View Map"
+        android:id="@+id/homeViewMap"
+        android:layout_below="@+id/homeViewTickets"
+        android:layout_alignRight="@+id/homeViewTickets"
+        android:layout_alignEnd="@+id/homeViewTickets"
+        android:layout_alignLeft="@+id/homeViewTickets"
+        android:layout_alignStart="@+id/homeViewTickets"
+        android:clickable="true" />
 </RelativeLayout>
