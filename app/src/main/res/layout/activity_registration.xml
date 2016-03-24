@@ -47,7 +47,7 @@
         android:layout_alignLeft="@+id/registerEmail"
         android:layout_alignStart="@+id/registerEmail" />
 
-    <!-- password input box -->
+    <!-- confirm password input box -->
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

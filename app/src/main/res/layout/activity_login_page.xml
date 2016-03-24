@@ -54,7 +54,10 @@
         android:id="@+id/loginSignIn"
 
         android:layout_above="@+id/loginRegisterNewAccount"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignRight="@+id/logo"
+        android:layout_alignEnd="@+id/logo"
+        android:layout_alignLeft="@+id/loginRegisterNewAccount"
+        android:layout_alignStart="@+id/loginRegisterNewAccount" />
 
     <!-- New Account button -->
     <Button
@@ -64,7 +67,10 @@
         android:text="Register New Account"
         android:id="@+id/loginRegisterNewAccount"
         android:layout_above="@+id/loginRetrieveAccount"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignRight="@+id/logo"
+        android:layout_alignEnd="@+id/logo"
+        android:layout_alignLeft="@+id/logo"
+        android:layout_alignStart="@+id/logo" />
 
     <!-- Retrieve Account button -->
     <Button
@@ -74,6 +80,9 @@
         android:text="Retrieve Account"
         android:id="@+id/loginRetrieveAccount"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignRight="@+id/loginRegisterNewAccount"
+        android:layout_alignEnd="@+id/loginRegisterNewAccount"
+        android:layout_alignLeft="@+id/loginRegisterNewAccount"
+        android:layout_alignStart="@+id/loginRegisterNewAccount" />
 
 </RelativeLayout>
