@@ -52,7 +52,7 @@
         android:layout_alignLeft="@+id/createTitle"
         android:layout_alignStart="@+id/createTitle"
         android:spinnerMode="dropdown"
-        android:entries="@categories/categoryItems"
+        android:entries="@array/categoryItems"
         />
 
 </RelativeLayout>
