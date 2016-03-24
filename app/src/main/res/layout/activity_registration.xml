@@ -9,4 +9,66 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.andrew.seeitsayit.Registration">
 
+    <!-- username input box -->
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Username"
+        android:ems="10"
+        android:id="@+id/registerUsername"
+        android:layout_marginTop="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/registerEmail"
+        android:layout_alignStart="@+id/registerEmail" />
+
+    <!-- email input box -->
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="Email"
+        android:ems="10"
+        android:id="@+id/registerEmail"
+        android:layout_below="@+id/registerUsername"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+    <!-- password input box -->
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="Password"
+        android:ems="10"
+        android:id="@+id/registerPassword"
+        android:layout_below="@+id/registerEmail"
+        android:layout_marginTop="30dp"
+        android:layout_alignLeft="@+id/registerEmail"
+        android:layout_alignStart="@+id/registerEmail" />
+
+    <!-- password input box -->
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="Confirm Password"
+        android:ems="10"
+        android:id="@+id/registerPasswordConfirm"
+        android:layout_below="@+id/registerPassword"
+        android:layout_marginTop="30dp"
+        android:layout_alignLeft="@+id/registerPassword"
+        android:layout_alignStart="@+id/registerPassword" />
+
+    <!-- submit button -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/registerSubmit"
+        android:layout_below="@+id/registerPasswordConfirm"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true" />
+
+
 </RelativeLayout>

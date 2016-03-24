@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="LOGO"
-        android:id="@+id/textView"
+        android:id="@+id/logo"
         android:layout_marginTop="25dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -29,10 +29,10 @@
         android:inputType="textPersonName"
         android:hint="Username"
         android:ems="10"
-        android:id="@+id/editText"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignStart="@+id/editText2"
+        android:id="@+id/loginUsername"
+        android:layout_below="@+id/logo"
+        android:layout_alignLeft="@+id/loginPassword"
+        android:layout_alignStart="@+id/loginPassword"
         android:layout_marginTop="27dp" />
 
     <!-- password input box -->
@@ -42,7 +42,7 @@
         android:inputType="textPassword"
         android:hint="Password"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/loginPassword"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
@@ -51,8 +51,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign In"
-        android:id="@+id/button"
-        android:layout_above="@+id/button2"
+        android:id="@+id/loginSignIn"
+
+        android:layout_above="@+id/loginRegisterNewAccount"
         android:layout_centerHorizontal="true" />
 
     <!-- New Account button -->
@@ -61,17 +62,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register New Account"
-        android:id="@+id/button2"
-        android:layout_above="@+id/button3"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
+        android:id="@+id/loginRegisterNewAccount"
+        android:layout_above="@+id/loginRetrieveAccount"
+        android:layout_centerHorizontal="true" />
 
+    <!-- Retrieve Account button -->
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Retrieve Account"
-        android:id="@+id/button3"
+        android:id="@+id/loginRetrieveAccount"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
