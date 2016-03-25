@@ -9,4 +9,50 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.andrew.seeitsayit.CreateTicket">
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:ems="10"
+        android:id="@+id/createTitle"
+        android:layout_marginTop="65dp"
+        android:singleLine="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Title"
+        android:id="@+id/labelTitle"
+        android:layout_alignBottom="@+id/createTitle"
+        android:layout_toLeftOf="@+id/createTitle"
+        android:layout_toStartOf="@+id/createTitle"
+        android:layout_marginRight="40dp"
+        android:layout_marginEnd="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Category"
+        android:id="@+id/labelCategory"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/labelTitle"
+        android:layout_alignRight="@+id/labelTitle"
+        android:layout_alignEnd="@+id/labelTitle" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/createCategory"
+        android:layout_alignTop="@+id/labelCategory"
+        android:layout_alignLeft="@+id/createTitle"
+        android:layout_alignStart="@+id/createTitle"
+        android:spinnerMode="dropdown"
+        android:entries="@array/categoryItems"
+        />
+
 </RelativeLayout>
