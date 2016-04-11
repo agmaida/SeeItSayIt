@@ -17,7 +17,7 @@ public class UserLocalStore {
         userLocalDatabase = context.getSharedPreferences(SP_EMAIL, 0);
     }
 
-    public void storedUserData(User user)
+    public void storeUserData(User user)
     {
         SharedPreferences.Editor userLocalDatabaseEditor = userLocalDatabase.edit();
         userLocalDatabaseEditor.putString("email", user.email);
@@ -25,7 +25,7 @@ public class UserLocalStore {
         userLocalDatabaseEditor.apply(); /*apply() commits without returning boolean*/
     }
 
-    public void setuserLoggedIn(boolean loggedIn)
+    public void setUserLoggedIn(boolean loggedIn)
     {
         SharedPreferences.Editor userLocalDatabaseEditor = userLocalDatabase.edit();
         userLocalDatabaseEditor.putBoolean("loggedIn",loggedIn);
