@@ -35,7 +35,6 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class ServerRequests {
     ProgressDialog progressDialog;
-    //public static final int CONNECTION_TIMEOUT = 1000 * 15;
     public static final String SERVER_ADDRESS = "http://andydng.com/work/seeitsayit/sqlqueries/";
 
     public ServerRequests(Context context) {
@@ -160,6 +159,7 @@ public class ServerRequests {
                 {
                     result.append(line);
                 }
+
 
                 try
                 {
