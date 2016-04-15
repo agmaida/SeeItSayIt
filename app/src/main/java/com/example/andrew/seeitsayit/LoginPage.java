@@ -58,6 +58,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
             @Override
             public void done(User returnedUser) {
                 if (returnedUser == null) {
+
                     showErrorMessage();
                 } else {
                     logUserIn(returnedUser);
