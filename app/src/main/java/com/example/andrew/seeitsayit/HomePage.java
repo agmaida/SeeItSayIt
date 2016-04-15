@@ -21,5 +21,12 @@ public class HomePage extends AppCompatActivity {
                 startActivity(new Intent(HomePage.this, CreateTicket.class));
             }
         });
+        Button viewMap = (Button)findViewById(R.id.homeViewMap);
+        viewMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomePage.this, Map.class));
+            }
+        });
     }
 }
