@@ -16,24 +16,13 @@
         android:layout_height="wrap_content"
         android:text="Create Ticket"
         android:id="@+id/homeCreateTicket"
-        android:layout_above="@+id/homeViewTickets"
-        android:layout_alignRight="@+id/homeViewTickets"
-        android:layout_alignEnd="@+id/homeViewTickets"
-        android:layout_alignLeft="@+id/homeViewTickets"
-        android:layout_alignStart="@+id/homeViewTickets"
         android:clickable="true"
-        android:onClick="toCreateTicketFromHome"/>
+        android:onClick="toCreateTicketFromHome"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="169dp" />
 
     <!--View tickets button-->
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View List of Tickets"
-        android:id="@+id/homeViewTickets"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:clickable="true"
-        android:onClick="toTicketListFromHome"/>
 
     <!--view map button-->
     <Button
@@ -41,11 +30,11 @@
         android:layout_height="wrap_content"
         android:text="View Map"
         android:id="@+id/homeViewMap"
-        android:layout_below="@+id/homeViewTickets"
-        android:layout_alignRight="@+id/homeViewTickets"
-        android:layout_alignEnd="@+id/homeViewTickets"
-        android:layout_alignLeft="@+id/homeViewTickets"
-        android:layout_alignStart="@+id/homeViewTickets"
         android:clickable="true"
-        android:onClick="toMapFromHome"/>
+        android:onClick="toMapFromHome"
+        android:layout_below="@+id/homeCreateTicket"
+        android:layout_alignRight="@+id/homeCreateTicket"
+        android:layout_alignEnd="@+id/homeCreateTicket"
+        android:layout_alignLeft="@+id/homeCreateTicket"
+        android:layout_alignStart="@+id/homeCreateTicket" />
 </RelativeLayout>
