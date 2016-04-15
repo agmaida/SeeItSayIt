@@ -9,11 +9,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -28,6 +31,12 @@ public class CreateTicket extends AppCompatActivity {
 
     private static final String TAG = "CallCamera";
     private static final int CAPTURE_IMAGE_ACTIVITY_REQ = 0;
+    private static String TITLE;
+    private static String DESCRIPTION;
+    private static String LOCATAION;
+    private static String CATEGORY;
+    private static String LONGITUDE;
+    private static Double LATITUDE;
 
     Uri fileUri = null;
     ImageView photoImage = null;
@@ -54,6 +63,35 @@ public class CreateTicket extends AppCompatActivity {
                 startActivityForResult(i, CAPTURE_IMAGE_ACTIVITY_REQ);
             }
         });
+
+        Button submitButton = (Button) findViewById(R.id.btnSubmit);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view)
+            {
+                EditText titleContents = (EditText)findViewById(R.id.createTitle);
+                EditText addressContents = (EditText)findViewById(R.id.createAddress);
+                EditText descriptionContents = (EditText)findViewById(R.id.createDescription);
+
+
+                //popup error box "Not all fields are filled in"
+                if(titleContents.getText().toString().equals("") || addressContents.getText().toString().equals("") || descriptionContents.getText().toString().equals(""))
+                {
+                    AlertDialog.Builder notAllFieldsFilledIn = new AlertDialog.Builder(CreateTicket.this);
+                    notAllFieldsFilledIn.setMessage("Not all fields are filled in");
+                    notAllFieldsFilledIn.setPositiveButton("Ok", null);
+                    notAllFieldsFilledIn.show();
+                }
+                //send to database
+                else
+                {
+                    TITLE = titleContents.getText().toString();
+                    DESCRIPTION = descriptionContents.getText().toString();
+                    LOCATAION = addressContents.getText().toString();
+
+                }
+            }
+        });
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
