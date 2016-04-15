@@ -12,47 +12,110 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="numberPassword"
+        android:inputType="text"
         android:ems="10"
         android:id="@+id/createTitle"
-        android:layout_marginTop="65dp"
         android:singleLine="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Title"
-        android:id="@+id/labelTitle"
-        android:layout_alignBottom="@+id/createTitle"
-        android:layout_toLeftOf="@+id/createTitle"
-        android:layout_toStartOf="@+id/createTitle"
-        android:layout_marginRight="40dp"
-        android:layout_marginEnd="40dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Category"
-        android:id="@+id/labelCategory"
-        android:layout_marginTop="24dp"
-        android:layout_below="@+id/labelTitle"
-        android:layout_alignRight="@+id/labelTitle"
-        android:layout_alignEnd="@+id/labelTitle" />
+        android:layout_alignParentEnd="true"
+        android:hint="Title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/createCategory"
-        android:layout_alignTop="@+id/labelCategory"
-        android:layout_alignLeft="@+id/createTitle"
-        android:layout_alignStart="@+id/createTitle"
         android:spinnerMode="dropdown"
         android:entries="@array/categoryItems"
-        />
+        android:layout_below="@+id/createTitle"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/lblDescription"
+        android:layout_toEndOf="@+id/btnSubmit" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:ems="10"
+        android:id="@+id/createAddress"
+        android:singleLine="true"
+        android:layout_below="@+id/createCategory"
+        android:layout_alignRight="@+id/createCategory"
+        android:layout_alignEnd="@+id/createCategory"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="31dp"
+        android:hint="Address/Location"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Use Current Location"
+        android:id="@+id/checkUseLocation"
+        android:layout_below="@+id/createAddress"
+        android:layout_alignLeft="@+id/createAddress"
+        android:layout_alignStart="@+id/createAddress" />
+
+    <EditText
+        android:layout_width="200px"
+        android:layout_height="200px"
+        android:inputType="text"
+        android:id="@+id/createDescription"
+        android:hint="Add a Description..."
+        android:layout_below="@+id/checkUseLocation"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignRight="@+id/createAddress"
+        android:layout_alignEnd="@+id/createAddress" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Photo"
+        android:id="@+id/btnAddPhoto"
+        android:layout_below="@+id/createDescription"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/btnSubmit"
+        android:layout_alignTop="@+id/btnCancel" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/btnCancel"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnSubmit"
+        android:layout_toEndOf="@+id/btnSubmit" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/photoImage"
+        android:layout_alignBottom="@+id/btnAddPhoto"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/createDescription" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Description"
+        android:id="@+id/lblDescription"
+        android:layout_alignTop="@+id/createCategory"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
