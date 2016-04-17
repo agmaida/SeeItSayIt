@@ -69,6 +69,7 @@ public class ServerRequests {
                 conn.setConnectTimeout(15000);
                 conn.setRequestMethod("POST");
 
+
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("email",user.email)
                         .appendQueryParameter("password",user.password);
@@ -83,6 +84,18 @@ public class ServerRequests {
                 writer.close();
                 os.close();
                 conn.connect();
+
+                InputStream in = conn.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+//                StringBuilder result = new StringBuilder();
+//                String line;
+//                for(line = reader.readLine(); line!=null; line=reader.readLine())
+//                {
+//                    result.append(line);
+//                }
+
+                in.close();
+                conn.disconnect();
             }
             catch(IOException e)
             {

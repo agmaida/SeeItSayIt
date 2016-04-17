@@ -10,7 +10,7 @@
     tools:context="com.example.andrew.seeitsayit.Registration">
 
     <!-- username input box -->
-    <EditText
+    <!--<EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -20,7 +20,7 @@
         android:layout_marginTop="60dp"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/registerEmail"
-        android:layout_alignStart="@+id/registerEmail" />
+        android:layout_alignStart="@+id/registerEmail" /> -->
 
     <!-- email input box -->
     <EditText
@@ -30,9 +30,9 @@
         android:hint="Email"
         android:ems="10"
         android:id="@+id/registerEmail"
-        android:layout_below="@+id/registerUsername"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp" />
+    <!--android:layout_below="@+id/registerUsername"-->
 
     <!-- password input box -->
     <EditText

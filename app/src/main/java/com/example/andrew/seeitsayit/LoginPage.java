@@ -40,10 +40,22 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
             case R.id.loginSignIn:
                 String email = loginUsername.getText().toString();
                 String password = loginPassword.getText().toString();
-
                 User user = new User(email, password);
 
+//                String address = "qlfjlejf";
+//                String category = "qlfjlejf";
+//                String title = "qlfjlejf";
+//                String description = "qlfjlejf";
+//                int user_id = 2;
+//                float latitude = 5.555555f;
+//                float longtitude = 5.555555f;
+//
+
+//                Ticket ticket = new Ticket(address, category, title, description,
+//                        user_id, latitude, longtitude);
+//                showTickets();
                 authenticate(user);
+
                 break;
             case R.id.loginRegisterNewAccount:
                 Intent registerIntent = new Intent(LoginPage.this, Registration.class);
@@ -66,6 +78,20 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         });
     }
 
+//    private void showTickets() {
+//        ServerRequests serverRequest = new ServerRequests(this);
+//        serverRequest.fetchTickets(new GetTicketCallback() {
+//            @Override
+//            public void done(Ticket returnedTicket) {
+//                if (returnedTicket == null) {
+//                    showErrorMessage();
+//                } else {
+//                    showFetchTickets(returnedTicket);
+//                }
+//            }
+//        });
+//    }
+
     private void showErrorMessage() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LoginPage.this);
         dialogBuilder.setMessage("Incorrect user details");
@@ -77,5 +103,13 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         userLocalStore.storeUserData(returnedUser);
         userLocalStore.setUserLoggedIn(true);
         startActivity(new Intent(this, HomePage.class)); //User goes to this when they log in
+    }
+
+    private void showFetchTickets(Ticket returnedTicket){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LoginPage.this);
+        dialogBuilder.setMessage(returnedTicket.toString());
+        dialogBuilder.setPositiveButton("Ok", null);
+        dialogBuilder.show();
+
     }
 }
