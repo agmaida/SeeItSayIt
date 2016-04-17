@@ -38,8 +38,8 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA4VgMbFNpOJ48hWOquXsXDEqDV51jsJNI" />
-
+            android:value="AIzaSyATmlREWp9pUEdjf3NDzUcPaR3AxgmMKRQ" />
+        <!-- AIzaSyA4VgMbFNpOJ48hWOquXsXDEqDV51jsJNI -->
         <activity
             android:name=".Map"
             android:label="@string/title_activity_map"></activity>
