@@ -7,7 +7,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,7 +25,6 @@ import java.net.URL;
 
 public class ServerRequests {
     ProgressDialog progressDialog;
-    //public static final int CONNECTION_TIMEOUT = 1000 * 15;
     public static final String SERVER_ADDRESS = "http://andydng.com/work/seeitsayit/sqlqueries/";
 
     public ServerRequests(Context context) {
@@ -43,6 +44,10 @@ public class ServerRequests {
         new fetchUserDataAsyncTask(user, userCallBack).execute();
     }
 
+    public void fetchTicketDataAsyncTask(JSONArray returnedTickets, GetTicketCallback ticketCallback){
+        progressDialog.show();
+        new fetchTicketDataAsyncTask(returnedTickets, ticketCallback).execute();
+    }
     /**
      * parameter sent to task upon execution progress published during
      * background computation result of the background computation
@@ -70,6 +75,7 @@ public class ServerRequests {
                 conn.setConnectTimeout(15000);
                 conn.setRequestMethod("POST");
 
+
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("email",user.email)
                         .appendQueryParameter("password",user.password);
@@ -84,6 +90,18 @@ public class ServerRequests {
                 writer.close();
                 os.close();
                 conn.connect();
+
+                InputStream in = conn.getInputStream();
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+//                StringBuilder result = new StringBuilder();
+//                String line;
+//                for(line = reader.readLine(); line!=null; line=reader.readLine())
+//                {
+//                    result.append(line);
+//                }
+
+                in.close();
+                conn.disconnect();
             }
             catch(IOException e)
             {
@@ -149,6 +167,7 @@ public class ServerRequests {
                     result.append(line);
                 }
 
+
                 try
                 {
                     //Nothing is returning from result.
@@ -181,6 +200,76 @@ public class ServerRequests {
             super.onPostExecute(returnedUser);
             progressDialog.dismiss();
             userCallBack.done(returnedUser);
+        }
+    }
+
+    public class fetchTicketDataAsyncTask extends AsyncTask<Void, Void, JSONArray> {
+//        Ticket ticket;
+        GetTicketCallback ticketCallback;
+        JSONArray returnedTickets;
+
+        public fetchTicketDataAsyncTask(JSONArray returnedTickets, GetTicketCallback ticketCallback) {
+            this.returnedTickets = returnedTickets;
+            this.ticketCallback = ticketCallback;
+        }
+
+        @Override
+        protected JSONArray doInBackground(Void... params) {
+            JSONArray returnedTickets = null;
+            //JSONObject ticket = null;
+            try
+            {
+                URL url = new URL(SERVER_ADDRESS + "SelectAllTickets.php");
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setDoInput(true); //input from server
+                conn.setDoOutput(true); //output to server
+                conn.setReadTimeout(10000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("POST");
+
+                conn.connect();
+                //Now we pull data from the database and convert it to json
+                InputStream in = conn.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+                StringBuilder result = new StringBuilder();
+                String line;
+                for(line = reader.readLine(); line!=null; line=reader.readLine())
+                {
+                    result.append(line);
+                }
+
+                String outcome = result.toString();
+                Log.d("Pull from DB", outcome);
+
+                try
+                {
+                    JSONArray jArray = new JSONArray(outcome);
+                    if (jArray.length() != 0)
+                    {
+                        returnedTickets = jArray;
+                    }
+                }
+                catch(JSONException e)
+                {
+                    //Log.e("MYAPP", "unexpected JSON exception", e);
+                    e.printStackTrace();
+                }
+                in.close();
+                conn.disconnect();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+
+            return returnedTickets;
+        }
+        @Override
+        protected void onPostExecute(JSONArray returnedTickets) {
+            super.onPostExecute(returnedTickets);
+            progressDialog.dismiss();
+            ticketCallback.done(returnedTickets);
         }
     }
 }

@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.json.JSONArray;
+
 public class LoginPage extends AppCompatActivity implements View.OnClickListener{
 
     Button loginSignIn, loginRegisterNewAccount, loginRetrieveAccount;
@@ -40,10 +42,23 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
             case R.id.loginSignIn:
                 String email = loginUsername.getText().toString();
                 String password = loginPassword.getText().toString();
-
                 User user = new User(email, password);
 
+//                String address = "qlfjlejf";
+//                String category = "qlfjlejf";
+//                String title = "qlfjlejf";
+//                String description = "qlfjlejf";
+//                int user_id = 2;
+//                float latitude = 5.555555f;
+//                float longtitude = 5.555555f;
+//
+//
+//                Ticket ticket = new Ticket(address, category, title, description,
+//                        user_id, latitude, longtitude);
+                JSONArray jArray = null;
+                //showTickets(jArray);
                 authenticate(user);
+
                 break;
             case R.id.loginRegisterNewAccount:
                 Intent registerIntent = new Intent(LoginPage.this, Registration.class);
@@ -58,6 +73,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
             @Override
             public void done(User returnedUser) {
                 if (returnedUser == null) {
+
                     showErrorMessage();
                 } else {
                     logUserIn(returnedUser);
@@ -78,4 +94,5 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         userLocalStore.setUserLoggedIn(true);
         startActivity(new Intent(this, HomePage.class)); //User goes to this when they log in
     }
+
 }
