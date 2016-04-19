@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.json.JSONArray;
+
 public class LoginPage extends AppCompatActivity implements View.OnClickListener{
 
     Button loginSignIn, loginRegisterNewAccount, loginRetrieveAccount;
@@ -50,10 +52,11 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
 //                float latitude = 5.555555f;
 //                float longtitude = 5.555555f;
 //
-
+//
 //                Ticket ticket = new Ticket(address, category, title, description,
 //                        user_id, latitude, longtitude);
-//                showTickets();
+                JSONArray jArray = null;
+                //showTickets(jArray);
                 authenticate(user);
 
                 break;
@@ -79,20 +82,6 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         });
     }
 
-//    private void showTickets() {
-//        ServerRequests serverRequest = new ServerRequests(this);
-//        serverRequest.fetchTickets(new GetTicketCallback() {
-//            @Override
-//            public void done(Ticket returnedTicket) {
-//                if (returnedTicket == null) {
-//                    showErrorMessage();
-//                } else {
-//                    showFetchTickets(returnedTicket);
-//                }
-//            }
-//        });
-//    }
-
     private void showErrorMessage() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LoginPage.this);
         dialogBuilder.setMessage("Incorrect user details");
@@ -106,11 +95,4 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         startActivity(new Intent(this, HomePage.class)); //User goes to this when they log in
     }
 
-    private void showFetchTickets(Ticket returnedTicket){
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LoginPage.this);
-        dialogBuilder.setMessage(returnedTicket.toString());
-        dialogBuilder.setPositiveButton("Ok", null);
-        dialogBuilder.show();
-
-    }
 }
