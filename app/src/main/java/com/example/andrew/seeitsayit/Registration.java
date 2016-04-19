@@ -42,7 +42,12 @@ public class Registration extends AppCompatActivity  implements View.OnClickList
                 }
                 else
                 {
-                    registerUser(user);
+                    if (email.contains("@knights.ucf.edu") && email.contains("@ucf.edu")){
+                        registerUser(user);
+                    }
+                    else{
+                        showErrorMessage2();
+                    }
                 }
 
                 break;
@@ -65,6 +70,13 @@ public class Registration extends AppCompatActivity  implements View.OnClickList
     private void showErrorMessage() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Registration.this);
         dialogBuilder.setMessage("Password do not match.");
+        dialogBuilder.setPositiveButton("Ok", null);
+        dialogBuilder.show();
+    }
+
+    private void showErrorMessage2() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Registration.this);
+        dialogBuilder.setMessage("Email must a UCF email.");
         dialogBuilder.setPositiveButton("Ok", null);
         dialogBuilder.show();
     }
