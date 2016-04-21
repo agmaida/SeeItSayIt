@@ -49,6 +49,15 @@ public class CreateTicket extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Button cancelButton = (Button)findViewById(R.id.btnCancel);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CreateTicket.this, HomePage.class));
+            }
+        });
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_ticket);
         photoImage = (ImageView) findViewById(R.id.photoImage);

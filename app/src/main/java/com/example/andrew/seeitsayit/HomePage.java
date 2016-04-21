@@ -8,6 +8,13 @@ import android.widget.Button;
 
 public class HomePage extends AppCompatActivity {
 
+
+
+    //********************************************************************************************
+    //we need to add onclick methods for "view list of tickets" button and "view map" button
+    //we also need a view map page
+    //********************************************************************************************
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,4 +36,6 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
+
+
 }
