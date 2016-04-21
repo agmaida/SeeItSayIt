@@ -24,6 +24,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -38,7 +39,7 @@ public class CreateTicket extends AppCompatActivity {
     private static String LONGITUDE;
     private static Double LATITUDE;
 
-    Uri fileUri = null;
+   // Uri fileUri = null;
     ImageView photoImage = null;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -57,10 +58,9 @@ public class CreateTicket extends AppCompatActivity {
         callCameraButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                File file = getOutputPhotoFile();
-                fileUri = Uri.fromFile(getOutputPhotoFile());
-                i.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-                startActivityForResult(i, CAPTURE_IMAGE_ACTIVITY_REQ);
+                //i.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+                //startActivityForResult(i, CAPTURE_IMAGE_ACTIVITY_REQ);
+                dispatchTakePictureIntent();
             }
         });
 
@@ -97,97 +97,56 @@ public class CreateTicket extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    private File getOutputPhotoFile() {
-        File directory = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), getPackageName());
-        if (!directory.exists()) {
-            if (!directory.mkdirs()) {
-                Log.e(TAG, "Failed to create storage directory.");
-                return null;
+
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    String currentPhotoPath;
+
+    private void dispatchTakePictureIntent(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null){
+            File photoFile = null;
+            try{
+                photoFile = createImageFile();
+            }
+            catch (IOException ex){
+                //Failed
+            }
+
+            //Continue only if the File was saved successfully
+            if (photoFile != null) {
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            photoImage.setImageBitmap(imageBitmap);
+        }
+    }
+
+    private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyMMdd_HHmmss").format(new Date());
-        return new File(directory.getPath() + File.separator + "IMG_"
-                + timeStamp + ".jpg");
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+        currentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQ) {
-            if (resultCode == RESULT_OK) {
-                Uri photoUri = null;
-                if (data == null) {
-                    // A known bug here! The image should have saved in fileUri
-                    Toast.makeText(this, "Image saved successfully",
-                            Toast.LENGTH_LONG).show();
-                    photoUri = fileUri;
-                } else {
-                    photoUri = data.getData();
-                    Toast.makeText(this, "Image saved successfully in: " + data.getData(),
-                            Toast.LENGTH_LONG).show();
-                }
-                showPhoto(photoUri);
-            } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Callout for image capture failed!",
-                        Toast.LENGTH_LONG).show();
-            }
-        }
+    private void galleryAddPic(){
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(currentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
     }
 
-    private void showPhoto(Uri photoUri) {
-        File imageFile = new File(photoUri.getPath());
-        if (imageFile.exists()) {
-            ((BitmapDrawable) photoImage.getDrawable()).getBitmap().recycle();
-            Drawable oldDrawable = photoImage.getDrawable();
-            if (oldDrawable != null)
-            {
-                ((BitmapDrawable)oldDrawable).getBitmap().recycle();
-            }
-            Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-            BitmapDrawable drawable = new BitmapDrawable(this.getResources(), bitmap);
-            photoImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            photoImage.setImageDrawable(drawable);
-        }
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "CreateTicket Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.example.andrew.seeitsayit/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "CreateTicket Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.example.andrew.seeitsayit/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
-    }
 }
