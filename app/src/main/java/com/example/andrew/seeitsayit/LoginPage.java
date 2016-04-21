@@ -44,20 +44,16 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                 String password = loginPassword.getText().toString();
                 User user = new User(email, password);
 
-//                String address = "qlfjlejf";
-//                String category = "qlfjlejf";
-//                String title = "qlfjlejf";
-//                String description = "qlfjlejf";
-//                int user_id = 2;
-//                float latitude = 5.555555f;
-//                float longtitude = 5.555555f;
-//
-//
-//                Ticket ticket = new Ticket(address, category, title, description,
-//                        user_id, latitude, longtitude);
                 JSONArray jArray = null;
                 //showTickets(jArray);
-                authenticate(user);
+                if( email.isEmpty() || password.isEmpty())
+                {
+                    emptyFieldErrorMessage();
+                }
+                else
+                {
+                    authenticate(user);
+                }
 
                 break;
             case R.id.loginRegisterNewAccount:
@@ -85,6 +81,13 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     private void showErrorMessage() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LoginPage.this);
         dialogBuilder.setMessage("Incorrect user details");
+        dialogBuilder.setPositiveButton("Ok", null);
+        dialogBuilder.show();
+    }
+
+    private void emptyFieldErrorMessage() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LoginPage.this);
+        dialogBuilder.setMessage("All fields must be filled.");
         dialogBuilder.setPositiveButton("Ok", null);
         dialogBuilder.show();
     }
