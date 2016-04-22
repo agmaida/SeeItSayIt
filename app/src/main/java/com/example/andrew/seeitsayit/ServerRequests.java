@@ -44,9 +44,14 @@ public class ServerRequests {
         new fetchUserDataAsyncTask(user, userCallBack).execute();
     }
 
-    public void fetchTicketDataAsyncTask(JSONArray returnedTickets, GetTicketCallback ticketCallback){
+    public void fetchTicketDataAsyncTask(JSONArray returnedTickets, GetTicketsCallback ticketsCallback){
         progressDialog.show();
-        new fetchTicketDataAsyncTask(returnedTickets, ticketCallback).execute();
+        new fetchTicketDataAsyncTask(returnedTickets, ticketsCallback).execute();
+    }
+
+    public void StoreTicketDataAsyncTask(Ticket returnedTickets, GetTicketCallback ticketCallback){
+        progressDialog.show();
+        new StoreTicketDataAsyncTask(returnedTickets, ticketCallback).execute();
     }
     /**
      * parameter sent to task upon execution progress published during
@@ -205,12 +210,12 @@ public class ServerRequests {
 
     public class fetchTicketDataAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 //        Ticket ticket;
-        GetTicketCallback ticketCallback;
+        GetTicketsCallback ticketsCallback;
         JSONArray returnedTickets;
 
-        public fetchTicketDataAsyncTask(JSONArray returnedTickets, GetTicketCallback ticketCallback) {
+        public fetchTicketDataAsyncTask(JSONArray returnedTickets, GetTicketsCallback ticketsCallback) {
             this.returnedTickets = returnedTickets;
-            this.ticketCallback = ticketCallback;
+            this.ticketsCallback = ticketsCallback;
         }
 
         @Override
@@ -269,7 +274,81 @@ public class ServerRequests {
         protected void onPostExecute(JSONArray returnedTickets) {
             super.onPostExecute(returnedTickets);
             progressDialog.dismiss();
-            ticketCallback.done(returnedTickets);
+            ticketsCallback.done(returnedTickets);
         }
+    }
+
+    public class StoreTicketDataAsyncTask extends AsyncTask<Void, Void, Void> {
+        Ticket ticket;
+        GetTicketCallback ticketCallBack;
+
+        public StoreTicketDataAsyncTask(Ticket ticket, GetTicketCallback ticketCallBack) {
+            this.ticket = ticket;
+            this.ticketCallBack = ticketCallBack;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try
+            {
+                URL url = new URL(SERVER_ADDRESS + "SubmitTicket.php");
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setDoInput(true); //input from server
+                conn.setDoOutput(true); //output to server
+                conn.setReadTimeout(10000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("POST");
+
+                String UID = "" + ticket.user_id;
+                String lat = "" + ticket.latitude;
+                String lng = "" + ticket.longitude;
+
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("address",ticket.address)
+                        .appendQueryParameter("category",ticket.category)
+                        .appendQueryParameter("title", ticket.title)
+                        .appendQueryParameter("description", ticket.description)
+                        .appendQueryParameter("user_id", UID)
+                        .appendQueryParameter("latitude",lat)
+                        .appendQueryParameter("longitude", lng);
+
+                String query = builder.build().getEncodedQuery();
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
+                writer.write(query);
+
+                writer.flush();
+                writer.close();
+                os.close();
+                conn.connect();
+
+                InputStream in = conn.getInputStream();
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+//                StringBuilder result = new StringBuilder();
+//                String line;
+//                for(line = reader.readLine(); line!=null; line=reader.readLine())
+//                {
+//                    result.append(line);
+//                }
+
+                in.close();
+                conn.disconnect();
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            progressDialog.dismiss();
+            ticketCallBack.done(null);
+        }
+
     }
 }

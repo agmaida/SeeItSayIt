@@ -31,7 +31,7 @@
         android:entries="@array/categoryItems"
         android:layout_below="@+id/createTitle"
         android:layout_marginTop="20dp"
-        android:layout_toRightOf="@+id/lblDescription"
+        android:layout_toRightOf="@+id/lblCat"
         android:layout_toEndOf="@+id/btnSubmit" />
 
     <EditText
@@ -47,7 +47,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="31dp"
-        android:hint="Address/Location"
+        android:hint="Relative Location"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -58,7 +58,9 @@
         android:id="@+id/checkUseLocation"
         android:layout_below="@+id/createAddress"
         android:layout_alignLeft="@+id/createAddress"
-        android:layout_alignStart="@+id/createAddress" />
+        android:layout_alignStart="@+id/createAddress"
+        android:enabled="true"
+        android:checked="true" />
 
     <EditText
         android:layout_width="200px"
@@ -88,16 +90,9 @@
         android:layout_height="wrap_content"
         android:text="Submit"
         android:id="@+id/btnSubmit"
-        android:layout_alignTop="@+id/btnCancel" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:id="@+id/btnCancel"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/btnSubmit"
-        android:layout_toEndOf="@+id/btnSubmit" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="44dp" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -112,8 +107,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Description"
-        android:id="@+id/lblDescription"
+        android:text="Category"
+        android:id="@+id/lblCat"
         android:layout_alignTop="@+id/createCategory"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
