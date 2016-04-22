@@ -9,9 +9,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Criteria;
 import android.location.LocationManager;
 import android.location.Location;
 import android.location.LocationListener;
+import android.media.browse.MediaBrowser;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,6 +34,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 //import com.google.android.gms.location.LocationListener;
@@ -44,7 +47,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CreateTicket extends AppCompatActivity {
+public class CreateTicket extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = "CallCamera";
     private static final int CAPTURE_IMAGE_ACTIVITY_REQ = 0;
@@ -62,20 +65,40 @@ public class CreateTicket extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
+    private LocationManager mLocManager;
+    GoogleApiClient mGoogleApiClient;
+    Location mLastLocation;
     @Override
     //@TargetApi(Build.VERSION_CODES.M)
     protected void onCreate(Bundle savedInstanceState) {
 
-        LocationManager mlocManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        LocationListener mlocListener = new MyLocationListener();
-
-        try {
-            mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
+        // Create an instance of GoogleAPIClient.
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
         }
-        catch(SecurityException e){
 
-        }
+        mLocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_LOW);
+        String provider = mLocManager.getBestProvider(criteria, true);
+
+//        try {
+//            Location location = null;
+//            mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+//            if (location == null) {
+//                location = mLocManager.getLastKnownLocation(provider);
+//            } else {
+//                LONGITUDE = location.getLongitude();
+//                LATITUDE = location.getLatitude();
+//            }
+//        }
+//        catch (SecurityException e){
+//
+//        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_ticket);
@@ -149,7 +172,39 @@ public class CreateTicket extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        try {
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        }
+        catch(SecurityException e){
 
+        }
+        if (mLastLocation != null) {
+            LATITUDE = mLastLocation.getLatitude();
+            LONGITUDE = mLastLocation.getLongitude();
+        }
+    }
+
+    protected void onStart() {
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
+
+    @Override
+    public void onConnectionSuspended(int x){
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult r){
+
+    }
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     String currentPhotoPath;
