@@ -1,14 +1,24 @@
 package com.example.andrew.seeitsayit;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.LocationManager;
+import android.location.Location;
+import android.location.LocationListener;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,12 +26,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+//import com.google.android.gms.location.LocationListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,8 +52,8 @@ public class CreateTicket extends AppCompatActivity {
     private static String DESCRIPTION;
     private static String LOCATAION;
     private static String CATEGORY;
-    private static String LONGITUDE;
-    private static Double LATITUDE;
+    private static double LONGITUDE;
+    private static double LATITUDE;
 
    // Uri fileUri = null;
     ImageView photoImage = null;
@@ -48,15 +64,18 @@ public class CreateTicket extends AppCompatActivity {
     private GoogleApiClient client;
 
     @Override
+    //@TargetApi(Build.VERSION_CODES.M)
     protected void onCreate(Bundle savedInstanceState) {
 
-        Button cancelButton = (Button)findViewById(R.id.btnCancel);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CreateTicket.this, HomePage.class));
-            }
-        });
+        LocationManager mlocManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        LocationListener mlocListener = new MyLocationListener();
+
+        try {
+            mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
+        }
+        catch(SecurityException e){
+
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_ticket);
@@ -93,10 +112,22 @@ public class CreateTicket extends AppCompatActivity {
                 //send to database
                 else
                 {
-                    TITLE = titleContents.getText().toString();
-                    DESCRIPTION = descriptionContents.getText().toString();
-                    LOCATAION = addressContents.getText().toString();
+                    Spinner createCategory = (Spinner) findViewById(R.id.createCategory);
+                    //Ticket t = new Ticket(addressContents.getText().toString(), createCategory.getSelectedItem().toString(), titleContents.getText().toString(), descriptionContents.getText().toString(), 1, LATITUDE, LONGITUDE);
 
+                    try {
+                        JSONObject jsonTicket = new JSONObject();
+                        jsonTicket.put("address", addressContents.getText().toString());
+                        jsonTicket.put("category", createCategory.getSelectedItem().toString());
+                        jsonTicket.put("title", titleContents.getText().toString());
+                        jsonTicket.put("description", descriptionContents.getText().toString());
+                        jsonTicket.put("user_id", 1);
+                        jsonTicket.put("latitude", (float)LATITUDE);
+                        jsonTicket.put("longitude", (float)LONGITUDE);
+                    }
+                    catch (JSONException e){
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -157,5 +188,30 @@ public class CreateTicket extends AppCompatActivity {
         this.sendBroadcast(mediaScanIntent);
     }
 
+    public class MyLocationListener implements LocationListener{
 
+        @Override
+        public void onLocationChanged(Location loc){
+            LATITUDE = loc.getLatitude();
+            LONGITUDE = loc.getLongitude();
+            //Do some stuff
+        }
+
+        @Override
+        public void onProviderDisabled(String provider){
+            //do some stuff when the GPS is disabeled
+
+            Toast.makeText(getApplicationContext(), "GPS Disabled", Toast.LENGTH_SHORT);
+        }
+
+        @Override
+        public void onProviderEnabled(String provider){
+            Toast.makeText(getApplicationContext(), "GPS Enabled", Toast.LENGTH_SHORT);
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras){
+            //Empty
+        }
+    }
 }

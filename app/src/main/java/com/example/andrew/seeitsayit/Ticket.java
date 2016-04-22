@@ -12,11 +12,11 @@ public class Ticket {
     int user_id;
     //datecreated
     //dateclosed
-    float latitude;
-    float longtitude;
+    double latitude;
+    double longtitude;
 
     public Ticket(String address, String category, String title, String description,
-                  int user_id, Float latitude, Float longtitude)
+                  int user_id, Double latitude, Double longtitude)
     {
         this.address = address;
         this.category = category;
