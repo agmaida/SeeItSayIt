@@ -23,8 +23,9 @@
         android:layout_alignStart="@+id/homeViewTickets"
         android:clickable="true"
         android:onClick="toCreateTicketFromHome"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp" />
 
     <!--View tickets button-->
     <Button
@@ -57,9 +58,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:layout_marginTop="20dp"
         android:src="@mipmap/logosignin"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginTop="29dp" />
 </RelativeLayout>
