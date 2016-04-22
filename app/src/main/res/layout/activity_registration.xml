@@ -30,8 +30,10 @@
         android:hint="Email"
         android:ems="10"
         android:id="@+id/registerEmail"
+        android:layout_above="@+id/registerPassword"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp" />
     <!--android:layout_below="@+id/registerUsername"-->
 
     <!-- password input box -->
@@ -42,10 +44,11 @@
         android:hint="Password"
         android:ems="10"
         android:id="@+id/registerPassword"
-        android:layout_below="@+id/registerEmail"
-        android:layout_marginTop="30dp"
+        android:layout_above="@+id/registerPasswordConfirm"
         android:layout_alignLeft="@+id/registerEmail"
-        android:layout_alignStart="@+id/registerEmail" />
+        android:layout_alignStart="@+id/registerEmail"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp" />
 
     <!-- confirm password input box -->
     <EditText
@@ -55,10 +58,10 @@
         android:hint="Confirm Password"
         android:ems="10"
         android:id="@+id/registerPasswordConfirm"
-        android:layout_below="@+id/registerPassword"
-        android:layout_marginTop="30dp"
+        android:layout_above="@+id/registerSubmit"
         android:layout_alignLeft="@+id/registerPassword"
-        android:layout_alignStart="@+id/registerPassword" />
+        android:layout_alignStart="@+id/registerPassword"
+        android:layout_marginBottom="20dp" />
 
     <!-- submit button -->
     <Button
@@ -66,9 +69,19 @@
         android:layout_height="wrap_content"
         android:text="Submit"
         android:id="@+id/registerSubmit"
-        android:layout_below="@+id/registerPasswordConfirm"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/logosignin"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp" />
 
 
 </RelativeLayout>

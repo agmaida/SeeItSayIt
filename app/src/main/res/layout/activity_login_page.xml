@@ -7,20 +7,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.andrew.seeitsayit.LoginPage">
+    tools:context="com.example.andrew.seeitsayit.LoginPage"
+    android:background="#ffffff">
 
     <!-- LOGO -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="LOGO"
-        android:id="@+id/logo"
-        android:layout_marginTop="25dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="75sp"
-        />
 
     <!-- username input box -->
     <EditText
@@ -30,10 +20,10 @@
         android:hint="Username"
         android:ems="10"
         android:id="@+id/loginUsername"
-        android:layout_below="@+id/logo"
+        android:layout_above="@+id/loginPassword"
         android:layout_alignLeft="@+id/loginPassword"
         android:layout_alignStart="@+id/loginPassword"
-        android:layout_marginTop="27dp" />
+        android:layout_marginTop="10dp" />
 
     <!-- password input box -->
     <EditText
@@ -43,8 +33,9 @@
         android:hint="Password"
         android:ems="10"
         android:id="@+id/loginPassword"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/loginSignIn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
 
     <!-- sign in button -->
     <Button
@@ -54,10 +45,8 @@
         android:id="@+id/loginSignIn"
 
         android:layout_above="@+id/loginRegisterNewAccount"
-        android:layout_alignRight="@+id/logo"
-        android:layout_alignEnd="@+id/logo"
-        android:layout_alignLeft="@+id/loginRegisterNewAccount"
-        android:layout_alignStart="@+id/loginRegisterNewAccount" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
 
     <!-- New Account button -->
     <Button
@@ -67,10 +56,7 @@
         android:text="Register New Account"
         android:id="@+id/loginRegisterNewAccount"
         android:layout_above="@+id/loginRetrieveAccount"
-        android:layout_alignRight="@+id/logo"
-        android:layout_alignEnd="@+id/logo"
-        android:layout_alignLeft="@+id/logo"
-        android:layout_alignStart="@+id/logo" />
+        android:layout_centerHorizontal="true" />
 
     <!-- Retrieve Account button -->
     <Button
@@ -80,9 +66,19 @@
         android:text="Retrieve Account"
         android:id="@+id/loginRetrieveAccount"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/loginRegisterNewAccount"
-        android:layout_alignEnd="@+id/loginRegisterNewAccount"
         android:layout_alignLeft="@+id/loginRegisterNewAccount"
-        android:layout_alignStart="@+id/loginRegisterNewAccount" />
+        android:layout_alignStart="@+id/loginRegisterNewAccount"
+        android:layout_marginBottom="20dp"
+        android:layout_alignRight="@+id/loginRegisterNewAccount"
+        android:layout_alignEnd="@+id/loginRegisterNewAccount" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Logo"
+        android:src="@mipmap/logosignin"
+        android:layout_above="@+id/loginUsername"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
 
 </RelativeLayout>

@@ -22,7 +22,9 @@
         android:layout_alignLeft="@+id/homeViewTickets"
         android:layout_alignStart="@+id/homeViewTickets"
         android:clickable="true"
-        android:onClick="toCreateTicketFromHome"/>
+        android:onClick="toCreateTicketFromHome"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
 
     <!--View tickets button-->
     <Button
@@ -30,10 +32,11 @@
         android:layout_height="wrap_content"
         android:text="View List of Tickets"
         android:id="@+id/homeViewTickets"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
         android:clickable="true"
-        android:onClick="toTicketListFromHome"/>
+        android:onClick="toTicketListFromHome"
+        android:layout_above="@+id/homeViewMap"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
 
     <!--view map button-->
     <Button
@@ -41,11 +44,22 @@
         android:layout_height="wrap_content"
         android:text="View Map"
         android:id="@+id/homeViewMap"
-        android:layout_below="@+id/homeViewTickets"
-        android:layout_alignRight="@+id/homeViewTickets"
-        android:layout_alignEnd="@+id/homeViewTickets"
+        android:clickable="true"
+        android:onClick="toMapFromHome"
+        android:layout_marginBottom="70dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/homeViewTickets"
         android:layout_alignStart="@+id/homeViewTickets"
-        android:clickable="true"
-        android:onClick="toMapFromHome"/>
+        android:layout_alignRight="@+id/homeViewTickets"
+        android:layout_alignEnd="@+id/homeViewTickets" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_marginTop="20dp"
+        android:src="@mipmap/logosignin"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
 </RelativeLayout>
