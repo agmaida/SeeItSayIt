@@ -116,16 +116,28 @@ public class CreateTicket extends AppCompatActivity {
                     //Ticket t = new Ticket(addressContents.getText().toString(), createCategory.getSelectedItem().toString(), titleContents.getText().toString(), descriptionContents.getText().toString(), 1, LATITUDE, LONGITUDE);
 
                     try {
-                        JSONObject jsonTicket = new JSONObject();
-                        jsonTicket.put("address", addressContents.getText().toString());
-                        jsonTicket.put("category", createCategory.getSelectedItem().toString());
-                        jsonTicket.put("title", titleContents.getText().toString());
-                        jsonTicket.put("description", descriptionContents.getText().toString());
-                        jsonTicket.put("user_id", 1);
-                        jsonTicket.put("latitude", (float)LATITUDE);
-                        jsonTicket.put("longitude", (float)LONGITUDE);
+//                        JSONObject jsonTicket = new JSONObject();
+//                        jsonTicket.put("address", addressContents.getText().toString());
+//                        jsonTicket.put("category", createCategory.getSelectedItem().toString());
+//                        jsonTicket.put("title", titleContents.getText().toString());
+//                        jsonTicket.put("description", descriptionContents.getText().toString());
+//                        jsonTicket.put("user_id", 1);
+//                        jsonTicket.put("latitude", (float)LATITUDE);
+//                        jsonTicket.put("longitude", (float)LONGITUDE);
+
+                        String address = addressContents.getText().toString();
+                        String category = createCategory.getSelectedItem().toString();
+                        String title = titleContents.getText().toString();
+                        String description = descriptionContents.getText().toString();
+                        int user_id = 1;
+                        //datecreated
+                        //dateclosed
+                        double latitude =(float)LATITUDE;
+                        double longitude = (float)LONGITUDE;
+                        Ticket ticket = new Ticket(address, category, title, description, user_id, latitude, longitude);
+                        submitTicket(ticket);
                     }
-                    catch (JSONException e){
+                    catch (Exception e){
                         e.printStackTrace();
                     }
                 }
@@ -213,5 +225,18 @@ public class CreateTicket extends AppCompatActivity {
         public void onStatusChanged(String provider, int status, Bundle extras){
             //Empty
         }
+    }
+
+    private void submitTicket(Ticket ticket)
+    {
+        ServerRequests serverRequests = new ServerRequests(this);
+        //Get ticketcallback is used so we know when the server callback is done
+        serverRequests.StoreTicketDataAsyncTask(ticket, new GetTicketCallback() {
+            @Override
+            public void done(Ticket returnedUser) {
+                Intent mapIntent = new Intent(CreateTicket.this, Map.class);
+                startActivity(mapIntent);
+            }
+        });
     }
 }

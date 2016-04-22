@@ -13,10 +13,10 @@ public class Ticket {
     //datecreated
     //dateclosed
     double latitude;
-    double longtitude;
+    double longitude;
 
     public Ticket(String address, String category, String title, String description,
-                  int user_id, Double latitude, Double longtitude)
+                  int user_id, double latitude, double longitude)
     {
         this.address = address;
         this.category = category;
@@ -24,6 +24,6 @@ public class Ticket {
         this.description = description;
         this.user_id = user_id;
         this.latitude = latitude;
-        this.longtitude = longtitude;
+        this.longitude = longitude;
     }
 }

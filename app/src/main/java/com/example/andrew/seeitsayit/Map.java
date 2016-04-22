@@ -63,7 +63,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
 
         private void showTickets(JSONArray jArray) {
             ServerRequests serverRequest = new ServerRequests(this);
-            serverRequest.fetchTicketDataAsyncTask(jArray, new GetTicketCallback() {
+            serverRequest.fetchTicketDataAsyncTask(jArray, new GetTicketsCallback() {
             @Override
             public void done(JSONArray returnedTickets) {
                 if (returnedTickets == null) {
